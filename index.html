@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic Game</title>
+</head>
+<body background="assets/images/crystal.png">
+
+<div id="game">
+	<h1>Psychic Game</h1>
+
+	<h2>Hit a key to guess what letter I am thinking of<h2>
+</div>
+
+<p id="wins"></p>
+<p id="badguess"></p>
+<p id="badguesssofar"></p>
+
+<script type="text/javascript">
+
+	var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+	
+	var incorrectGuess = [];
+	var winCounter = 0;
+	var badGuessCounter = 10;
+
+	var randomMaker = letters[Math.floor(Math.random()*letters.length)];
+	console.log(randomMaker)
+
+	document.onkeyup = function () {
+		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+			
+		 if (userGuess != randomMaker)  {	
+			incorrectGuess.push(userGuess);
+			var incorrectGuessOnScreen = document.getElementById('badguess');
+			incorrectGuessOnScreen.innerHTML = "Incorrect Guess " + incorrectGuess.join(" ");
+
+			badGuessCounter --;
+			var badGuessLeftOnScreen = document.getElementById('badguesssofar');
+			badGuessLeftOnScreen.innerHTML = "Guesses left! " + badGuessCounter; 
+
+
+		}
+		if (userGuess == randomMaker) {
+			winCounter++;
+			var winOnScreen = document.getElementById('wins');
+			winOnScreen.innerHTML = "WINNER! " + winCounter;
+		}
+
+		if (winCounter = winCounter++ ) {
+			randomMaker = letters[Math.floor(Math.random()*letters.length)];
+			console.log(randomMaker)
+		}
+
+		if (badGuessCounter <= 0 ) {
+			randomMaker = letters[Math.floor(Math.random()*letters.length)];
+			badGuessCounter = 10;
+			console.log(randomMaker)
+		}
+
+		if (winCounter == 3) {
+			alert("You Won! Good Job!!!");
+		}
+		if (winCounter == 5) {
+			alert("Okay....you win already!")
+		}
+
+		if (winCounter >=7) {
+			winCounter = -1;
+		}
+
+	}
+	
+
+</script>
+
+</body>
+</html>
